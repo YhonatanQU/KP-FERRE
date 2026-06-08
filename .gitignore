@@ -2,8 +2,11 @@ node_modules
 dist
 .env
 .env.*
+backend/.env
+backend/dist
 package-lock.json
 .vscode
 .DS_Store
 *.log
 *.sqlite
+supabase/.env
