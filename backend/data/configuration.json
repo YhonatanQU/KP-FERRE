@@ -1,0 +1,41 @@
+{
+  "company": {
+    "businessName": "KILLA´S PERÚ SAC",
+    "ruc": "20606214856",
+    "phone": "01-2345678",
+    "email": "contacto@miempresa.com",
+    "address": "Av. Principal 123, Lima, Perú"
+  },
+  "notifications": [
+    {
+      "id": "stock",
+      "label": "Alertas de stock bajo",
+      "description": "Notificar cuando el inventario esté por debajo del mínimo",
+      "enabled": true
+    },
+    {
+      "id": "ventas",
+      "label": "Nuevas ventas",
+      "description": "Recibir notificación por cada venta realizada",
+      "enabled": true
+    },
+    {
+      "id": "compras",
+      "label": "Nuevas compras",
+      "description": "Notificar cuando se registre una compra",
+      "enabled": false
+    },
+    {
+      "id": "cotizaciones",
+      "label": "Cotizaciones pendientes",
+      "description": "Recordatorio de cotizaciones sin convertir",
+      "enabled": true
+    },
+    {
+      "id": "reportes",
+      "label": "Reportes diarios",
+      "description": "Recibir resumen diario de operaciones",
+      "enabled": false
+    }
+  ]
+}
