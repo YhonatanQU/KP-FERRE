@@ -1,0 +1,56 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build frontend and backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Install backend dependencies
+        run: npm ci --prefix backend
+
+      - name: Build backend
+        run: npm run build --prefix backend
+
+  supabase-db-deploy:
+    name: Deploy database schema to Supabase
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+
+      - name: Install Supabase CLI
+        run: npm install -g supabase
+
+      - name: Push database schema to Supabase
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          echo "Supabase project ref: ${{ secrets.SUPABASE_PROJECT_REF }}"
+          supabase db push --project-ref "${{ secrets.SUPABASE_PROJECT_REF }}" --confirm
