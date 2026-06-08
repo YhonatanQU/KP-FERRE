@@ -30,8 +30,16 @@ jobs:
         run: npm install -g netlify-cli
 
       - name: Deploy to Netlify
+        id: netlify-deploy
         run: |
-          netlify deploy --dir=dist --prod --site "$NETLIFY_SITE_ID"
+          output=$(netlify deploy --dir=dist --prod --site "$NETLIFY_SITE_ID" 2>&1)
+          echo "$output"
+          url=$(printf '%s\n' "$output" | grep -Eo 'https?://[^ ]+' | tail -n 1)
+          echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Show Netlify deployment URL
+        run: |
+          echo "Netlify deployment URL: ${{ steps.netlify-deploy.outputs.deployment_url }}"

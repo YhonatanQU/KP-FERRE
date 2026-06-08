@@ -40,9 +40,17 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
       - name: Deploy to Vercel
+        id: vercel-deploy
         run: |
-          vercel deploy --prod --yes --token "$VERCEL_TOKEN"
+          output=$(vercel deploy --prod --yes --token "$VERCEL_TOKEN" 2>&1)
+          echo "$output"
+          url=$(printf '%s\n' "$output" | grep -Eo 'https?://[^ ]+' | tail -n 1)
+          echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Show Vercel deployment URL
+        run: |
+          echo "Vercel deployment URL: ${{ steps.vercel-deploy.outputs.deployment_url }}"
