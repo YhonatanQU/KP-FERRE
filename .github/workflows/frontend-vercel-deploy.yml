@@ -27,29 +27,45 @@ jobs:
         run: npm run build
 
       - name: Install Vercel CLI
-        run: npm install -g vercel
+        run: npm install -g vercel@54.9.1
 
-      - name: Configure Vercel project
+      - name: Verify Vercel authentication
         run: |
-          mkdir -p .vercel
-          cat > .vercel/project.json <<'EOF'
-          {"projectId":"$VERCEL_PROJECT_ID","orgId":"$VERCEL_ORG_ID"}
-          EOF
+          set -euo pipefail
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "Missing Vercel secret: VERCEL_TOKEN"
+            exit 1
+          fi
+          npx vercel@54.9.1 whoami --token "$VERCEL_TOKEN"
         env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy to Vercel
         id: vercel-deploy
         run: |
-          output=$(vercel deploy --prod --yes --token "$VERCEL_TOKEN" -A vercel.json 2>&1)
+          set -euo pipefail
+          echo "Workspace: $(pwd)"
+          ls -la
+          ls -la dist || true
+          cat vercel.json || true
+          scope_arg=""
+          if [ -n "${VERCEL_SCOPE:-}" ]; then
+            echo "Using Vercel scope: $VERCEL_SCOPE"
+            scope_arg="--scope $VERCEL_SCOPE"
+          fi
+          VERCEL_DEBUG=1 output=$(npx vercel@54.9.1 deploy dist --prod --yes $scope_arg --token "$VERCEL_TOKEN" --project "$VERCEL_PROJECT_ID" --local-config vercel.json 2>&1) || true
           echo "$output"
-          url=$(printf '%s\n' "$output" | grep -Eo 'https?://[^ ]+' | tail -n 1)
+          echo "$output" >&2
+          if echo "$output" | grep -q 'Error'; then
+            printf '%s\n' "$output" >&2
+            exit 1
+          fi
+          url=$(printf '%s\n' "$output" | grep -Eo 'https?://[^ ]+' | tail -n 1 || true)
           echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_SCOPE: ${{ secrets.VERCEL_SCOPE }}
 
       - name: Show Vercel deployment URL
         run: |

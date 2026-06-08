@@ -1,0 +1,124 @@
+{
+  "id": 80048252402,
+  "run_id": 27124142753,
+  "workflow_name": "Frontend Deploy to Vercel",
+  "head_branch": "main",
+  "run_url": "https://api.github.com/repos/YhonatanQU/KP-FERRE/actions/runs/27124142753",
+  "run_attempt": 1,
+  "node_id": "CR_kwDOS0JY3s8AAAASoz9l8g",
+  "head_sha": "41569bb04f95e8e42a3a07b477a3c55ef1b44cc5",
+  "url": "https://api.github.com/repos/YhonatanQU/KP-FERRE/actions/jobs/80048252402",
+  "html_url": "https://github.com/YhonatanQU/KP-FERRE/actions/runs/27124142753/job/80048252402",
+  "status": "completed",
+  "conclusion": "failure",
+  "created_at": "2026-06-08T08:04:04Z",
+  "started_at": "2026-06-08T08:04:07Z",
+  "completed_at": "2026-06-08T08:04:55Z",
+  "name": "Deploy frontend to Vercel",
+  "steps": [
+    {
+      "name": "Set up job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 1,
+      "started_at": "2026-06-08T08:04:08Z",
+      "completed_at": "2026-06-08T08:04:16Z"
+    },
+    {
+      "name": "Checkout repo",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 2,
+      "started_at": "2026-06-08T08:04:16Z",
+      "completed_at": "2026-06-08T08:04:17Z"
+    },
+    {
+      "name": "Setup Node.js",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 3,
+      "started_at": "2026-06-08T08:04:17Z",
+      "completed_at": "2026-06-08T08:04:22Z"
+    },
+    {
+      "name": "Install dependencies",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 4,
+      "started_at": "2026-06-08T08:04:22Z",
+      "completed_at": "2026-06-08T08:04:34Z"
+    },
+    {
+      "name": "Build frontend",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 5,
+      "started_at": "2026-06-08T08:04:34Z",
+      "completed_at": "2026-06-08T08:04:40Z"
+    },
+    {
+      "name": "Install Vercel CLI",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 6,
+      "started_at": "2026-06-08T08:04:40Z",
+      "completed_at": "2026-06-08T08:04:51Z"
+    },
+    {
+      "name": "Configure Vercel project",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 7,
+      "started_at": "2026-06-08T08:04:51Z",
+      "completed_at": "2026-06-08T08:04:51Z"
+    },
+    {
+      "name": "Deploy to Vercel",
+      "status": "completed",
+      "conclusion": "failure",
+      "number": 8,
+      "started_at": "2026-06-08T08:04:51Z",
+      "completed_at": "2026-06-08T08:04:52Z"
+    },
+    {
+      "name": "Show Vercel deployment URL",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 9,
+      "started_at": "2026-06-08T08:04:52Z",
+      "completed_at": "2026-06-08T08:04:52Z"
+    },
+    {
+      "name": "Post Setup Node.js",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 17,
+      "started_at": "2026-06-08T08:04:52Z",
+      "completed_at": "2026-06-08T08:04:52Z"
+    },
+    {
+      "name": "Post Checkout repo",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 18,
+      "started_at": "2026-06-08T08:04:52Z",
+      "completed_at": "2026-06-08T08:04:53Z"
+    },
+    {
+      "name": "Complete job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 19,
+      "started_at": "2026-06-08T08:04:53Z",
+      "completed_at": "2026-06-08T08:04:53Z"
+    }
+  ],
+  "check_run_url": "https://api.github.com/repos/YhonatanQU/KP-FERRE/check-runs/80048252402",
+  "labels": [
+    "ubuntu-latest"
+  ],
+  "runner_id": 1000000025,
+  "runner_name": "GitHub Actions 1000000025",
+  "runner_group_id": 0,
+  "runner_group_name": "GitHub Actions"
+}
