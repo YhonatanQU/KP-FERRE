@@ -42,7 +42,7 @@ jobs:
       - name: Deploy to Vercel
         id: vercel-deploy
         run: |
-          output=$(vercel deploy --prod --yes --token "$VERCEL_TOKEN" 2>&1)
+          output=$(vercel deploy --prod --yes --token "$VERCEL_TOKEN" -A vercel.json 2>&1)
           echo "$output"
           url=$(printf '%s\n' "$output" | grep -Eo 'https?://[^ ]+' | tail -n 1)
           echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
